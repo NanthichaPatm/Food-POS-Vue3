@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Schezwan Egg Noodles",
+    "note": "",
+    "price": "25.00",
+    "fullPrice": "",
+    "isShow": false
+  },
+  {
+    "id": "2",
+    "name": "Tomyum Noodles",
+    "note": "Medium Spicy",
+    "price": "35.00",
+    "fullPrice": "40.00",
+    "isShow": false
+  },
+  {
+    "id": "3",
+    "name": "Pizza",
+    "note": "",
+    "price": "10.00",
+    "fullPrice": "20.00",
+    "isShow": false
+  },
+  {
+    "id": "4",
+    "name": "Schezwan Egg Noodles",
+    "note": "Medium egg",
+    "price": "25.00",
+    "fullPrice": "30.00",
+    "isShow": false
+  },
+  {
+    "id": "5",
+    "name": "Tomyum Noodles",
+    "note": "Medium Spicy",
+    "price": "35.00",
+    "fullPrice": "40.00",
+    "isShow": false
+  }
+]
