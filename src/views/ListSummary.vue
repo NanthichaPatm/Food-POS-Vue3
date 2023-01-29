@@ -1,20 +1,19 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import CardAddMenu from "../components/Add-Menu.vue";
-const {menu} = defineProps(["addCart"]);
+const emit = defineEmits(['remove']);
+const { addCart } = defineProps(["addCart"]);
 
-const addMenu = ref(menu)
-
-const test = ()=>{
-  console.log(menu)
+const removeMenu = (i)=>{
+  console.log(i)
+  emit('remove',i);
 }
 
 </script>
 <template>
   <div class="container">
     <div class="header">
-      {{ menu }}
-      <button @click="test">
+      <button>
         <font-awesome-icon icon="fa-solid fa-plus" />
         Add Customer
       </button>
@@ -25,17 +24,7 @@ const test = ()=>{
       <button><font-awesome-icon icon="fa-solid fa-rotate-right" /></button>
     </div>
     <div class="AddMenu">
-      <div class="containerMenu">
-        <div class="Add-Menu">
-          <CardAddMenu />
-        </div>
-        <div class="end-content">
-          <button>Add</button>
-          <button>Discount</button>
-          <button>Coupon Code</button>
-          <button>Note</button>
-        </div>
-      </div>
+      <CardAddMenu :addCart="addCart" @remove="removeMenu" />
     </div>
     <div class="totalPrice">
       <div>
@@ -64,41 +53,6 @@ const test = ()=>{
   </div>
 </template>
 <style scoped>
-.containerMenu {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.Add-Menu {
-  overflow: scroll;
-}
-.end-content {
-  margin-top: auto;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  margin-bottom: 10px;
-  background-color: rgba(247, 155, 57, 0.329);
-  padding: 5px;
-  border-radius: 5px;
-}
-.end-content button {
-  background: none;
-  color: var(--orange);
-  border: none;
-  font-weight: 600;
-}
-.end-content button:nth-child(1) {
-  margin-right: auto;
-  color: var(--gray);
-}
-.end-content button:hover {
-  cursor: pointer;
-  border: 1px solid orange;
-  border-radius: 5px;
-  background: rgba(166, 166, 166, 0.15);
-}
-
 /* all */
 
 .container {

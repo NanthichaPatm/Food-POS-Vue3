@@ -1,9 +1,82 @@
 <script setup>
-import { defineProps } from "vue";
-const { menu } = defineProps(["menu"]);
+// import AddMenu from "../data/Add-Menu.json";
+import { ref, defineProps } from "vue";
+const {addCart} = defineProps(["addCart"]);
+
+
+// const ShowInfo = (i) => {
+//   AddList.value = AddList.value.map((menu, index) => {
+//     if (index === i) {
+//       menu.isShow = !menu.isShow;
+//     }
+//     return menu;
+//   });
+// };
+
+function removeMenu(i) {
+  AddMenus.value = AddMenus.value.filter((menu, index) => {
+    if (index !== i) {
+       return menu;
+    }
+  });
+  console.log(AddMenus.value)
+}
+
+
+
+
+
+
+
+const AddMenus = ref(addCart);
+console.log(AddMenus)
+
+// const ShowInfo = (i) => {
+//     console.log(i)
+//     console.log(AddMenu)
+//     AddMenus.value = AddMenus.value.map((menu,index)=>{
+//         if (index === i ){
+//             return {
+//                 ...menu,
+//                 isShow : !menu.isShow
+//             }
+//             console.log(menu.isShow,index)
+//         }
+//         return {
+//             ...menu
+//         }
+//     })
+//     console.log(AddMenus.value)
+// }
+const ShowInfo = (i) => {
+  AddMenus.value = AddMenus.value.map((menu, index) => {
+    if (index === i) {
+      menu.isShow = !menu.isShow;
+    }
+    return menu;
+  });
+};
 </script>
 <template>
-<div>
+
+      <div
+        v-for="(menu, index) in AddMenus"
+        :key="index"
+        class="section"
+        :style="`border-left:${
+          menu.isShow ? '2px solid rgb(20, 211, 20)' : 'translucent'
+        } ;`"
+      >
+        <a class="collapsible" @click="ShowInfo(index)">
+          <div>
+            <span v-if="menu.isShow" class="icon"
+              ><font-awesome-icon icon="fa-solid fa-chevron-down"
+            /></span>
+            <span v-else class="icon"
+              ><font-awesome-icon icon="fa-solid fa-chevron-right"
+            /></span>
+          </div>
+
           <span>{{ index + 1 }}</span>
           <div>
             <h4>{{ menu.name }}</h4>
@@ -19,8 +92,17 @@ const { menu } = defineProps(["menu"]);
             <button class="icon" id="removeMenu">
               <font-awesome-icon icon="fa-solid fa-xmark" />
             </button>
-          </div></div>
-      
+          </div>
+        </a>
+        <div class="content" v-if="menu.isShow">
+          <span
+            ><label for="quantity">Quantity</label> <input type="number" aria-valuemin="1" value="1"
+          /></span>
+          <span
+            ><label for="discount">Discount(%)</label> <input type="number"
+          /></span>
+        </div>
+      </div>
 </template>
 <style scoped>
 .container {

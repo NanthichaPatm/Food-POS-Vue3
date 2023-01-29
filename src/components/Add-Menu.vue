@@ -1,49 +1,10 @@
 <script setup>
-import { ref } from "vue";
-import AddMenu from "../data/Add-Menu.json";
+import { ref, defineProps, watch, computed, onMounted,defineEmits } from "vue";
+const {addCart} = defineProps(["addCart"]);
+const AddMenus = ref(addCart)
 
-const MENU = [{id:15, name:"Mama Tomyum",img:"",isShow:false,fullPrice:5,price:2,note:"Spicy"},{id:16, name:"Mama MooSap",img:"",isShow:false,fullPrice:"",price:2,note:""}]
-const AddList = ref(MENU);
+const emit = defineEmits(["remove"])
 
-
-
-
-// const ShowInfo = (i) => {
-//   AddList.value = AddList.value.map((menu, index) => {
-//     if (index === i) {
-//       menu.isShow = !menu.isShow;
-//     }
-//     return menu;
-//   });
-// };
-
-
-
-
-
-
-
-
-
-const AddMenus = ref(AddMenu);
-
-// const ShowInfo = (i) => {
-//     console.log(i)
-//     console.log(AddMenu)
-//     AddMenus.value = AddMenus.value.map((menu,index)=>{
-//         if (index === i ){
-//             return {
-//                 ...menu,
-//                 isShow : !menu.isShow
-//             }
-//             console.log(menu.isShow,index)
-//         }
-//         return {
-//             ...menu
-//         }
-//     })
-//     console.log(AddMenus.value)
-// }
 const ShowInfo = (i) => {
   AddMenus.value = AddMenus.value.map((menu, index) => {
     if (index === i) {
@@ -52,10 +13,25 @@ const ShowInfo = (i) => {
     return menu;
   });
 };
+
+const removeMenu = (i) =>{
+  console.log(i)
+  emit('remove',i)
+  AddMenus.value = AddMenus.value.filter((menu, index) => {
+    if (index !== i) {
+       return menu;
+    }
+  });
+};
+
+
+
+
 </script>
 <template>
-
-      <div
+     <div class="container">
+      <div class="Add-Meun">
+        <div
         v-for="(menu, index) in AddMenus"
         :key="index"
         class="section"
@@ -85,7 +61,7 @@ const ShowInfo = (i) => {
                 ${{ menu.fullPrice }}
               </p>
             </div>
-            <button class="icon" id="removeMenu">
+            <button class="icon" id="removeMenu" @click="removeMenu(index)">
               <font-awesome-icon icon="fa-solid fa-xmark" />
             </button>
           </div>
@@ -99,6 +75,14 @@ const ShowInfo = (i) => {
           /></span>
         </div>
       </div>
+      </div>
+      <div class="end-content">
+          <button>Add</button>
+          <button>Discount</button>
+          <button>Coupon Code</button>
+          <button>Note</button>
+        </div>
+     </div>
 </template>
 <style scoped>
 .container {

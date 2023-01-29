@@ -2,14 +2,26 @@
 import ListMenu from "./ListMenu.vue";
 import ListSummary from "./ListSummary.vue";
 import { ref } from "vue";
-let menu = "";
+const addCart = ref([]);
+
+// let addCart = ref();
 
 const addMenu = (menu) =>{
-  console.log(menu);
-  menu = menu
-  // addCart.value.push(menu)
-  console.log(menu);
+  addCart.value.push(menu)
+  console.log(addCart.value)
+  // addCart.value = menu
 };
+
+const removeMenu = (i) =>{
+  console.log(i);
+  console.log(addCart.value)
+  addCart.value = addCart.value.filter((menu,index) =>{
+    if (index !== i){
+      return menu;
+    }
+  });
+  console.log(addCart.value)
+}
 
 </script>
 <template>
@@ -18,7 +30,7 @@ const addMenu = (menu) =>{
       <ListMenu  @addMenu="addMenu"/>
     </div>
     <div class="ListSummary">
-        <ListSummary :addCart="menu" />
+        <ListSummary :addCart="addCart" @remove="removeMenu" />
     </div>
   </div>
 </template>
