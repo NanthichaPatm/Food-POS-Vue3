@@ -1,15 +1,24 @@
 <script setup>
 import ListMenu from "./ListMenu.vue";
-import ListSummary from "./ListSumary.vue"
+import ListSummary from "./ListSummary.vue";
+import { ref } from "vue";
+let menu = "";
+
+const addMenu = (menu) =>{
+  console.log(menu);
+  menu = menu
+  // addCart.value.push(menu)
+  console.log(menu);
+};
 
 </script>
 <template>
   <div class="display">
-    <div class="ListMenu">
-      <ListMenu />
+    <div class="ListMenu" >
+      <ListMenu  @addMenu="addMenu"/>
     </div>
     <div class="ListSummary">
-        <ListSummary/>
+        <ListSummary :addCart="menu" />
     </div>
   </div>
 </template>

@@ -1,29 +1,51 @@
 <script setup>
-import Card from '../components/Card.vue';
+import { ref, defineEmits } from "vue";
+import Card from "../components/Card.vue";
+import MenusList from "../data/MenuList.json";
+
+const Menus = ref(MenusList);
+const emit = defineEmits(['addMenu']);
+
+const addToCart = (menu) => {
+  console.log(menu);
+  emit('addMenu', menu);
+};
 </script>
 
 <template>
-    <div>
-        <div class="type-list">
-          <nav>
-            <a href="#">Starters</a>
-            <a href="#">Breakfast</a>
-            <a href="#">Lunch</a>
-            <a href="#">Supper</a>
-            <a href="#">Deserts</a>
-            <a href="#">Beverages</a>
-          </nav>
-        </div>
-        <Card class="card-menu"/>
+  <div>
+    <div class="type-list">
+      <nav>
+        <a href="#">Starters</a>
+        <a href="#">Breakfast</a>
+        <a href="#">Lunch</a>
+        <a href="#">Supper</a>
+        <a href="#">Deserts</a>
+        <a href="#">Beverages</a>
+      </nav>
     </div>
+    <div class="menu-list">
+      <Card
+        class="card-menu"
+        v-for="(menu, index) in Menus"
+        :key="index"
+        :menu="menu"
+        @click="addToCart(menu)"
+      />
+    </div>
+  </div>
 </template>
 <style scoped>
-
-.card-menu{
+.menu-list {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  margin: 0 15px 0 40px;
+  height: 100%; 
   overflow: auto;
   height: 80vh;
 }
-.type-list{
+.type-list {
   margin-top: 0;
   height: 100%;
 }

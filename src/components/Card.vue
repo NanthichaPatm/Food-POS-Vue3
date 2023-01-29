@@ -1,55 +1,43 @@
 <script setup>
-import { ref } from "vue";
-import MenusList from "../data/MenuList.json";
-const Menus = ref(MenusList);
+import { ref, defineProps } from "vue";
+const { menu } = defineProps(["menu"]);
+const Cart = ref([]);
 
-const addTolist = (i) => {
-  console.log(i);
-  Menus.value = Menus.value.map((menu, index) => {
-    if (index === i) {
-      console.log(menu);
-      return menu;
-    }
-    return menu;
-  });
+const addToCart = (menu) => {
+  // console.log(menu);
+  // Cart.value.push(menu);
+  // console.log(Cart.value);
+  emit("addMenu", menu);
 };
 </script>
 
 <template>
-  <div class="menu-list">
-
-      <div class="card" @click="addTolist(index)" v-for="(menu, index) in Menus" :key="index">
-        <img :src="menu.img" />
-        <div class="card-text">
-          <p>{{ menu.name }}</p>
-          <h5>${{ menu.price }}</h5>
-        </div>
-      </div>
-
+  <div class="card">
+    <img :src="menu.img" />
+    <div class="card-text">
+      <p>{{ menu.name }}</p>
+      <h5>${{ menu.price }}</h5>
+      <button class="addTo">
+        <font-awesome-icon icon="fa-solid fa-cart-plus" />
+      </button>
+    </div>
   </div>
 </template>
 <style scoped>
-.menu-list {
-  display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
-  margin: 0 15px 0 40px;
-  height: 100%;
-}
 .menu-list .card {
-  width: 160px;
+  width: 165px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin: 0 15px 20px 0;
   border-radius: 10px;
   padding-bottom: 5px;
   background: white;
+  overflow: hidden;
 }
 .card img {
   width: 100%;
-  height: 135px;
+  height: 150px;
   margin: 0;
-  border-radius: 10px 10px 0 0;
 }
 .card .card-text {
   display: flex;
@@ -57,8 +45,7 @@ const addTolist = (i) => {
   padding: auto 5px 0 5px;
   text-align: center;
   background: white;
-  margin-top: -7px;
-  height: 70px;
+  height: 100px;
   justify-content: end;
 }
 .card .card-text h5 {
@@ -70,5 +57,22 @@ const addTolist = (i) => {
 }
 .card:hover {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+.addTo {
+  width: fit-content;
+  align-self: end;
+  margin: 0px 5px;
+  border-radius: 50%;
+  padding: 6px;
+  border: none;
+  text-align: center;
+  font-size: 18px;
+  color: var(--orange);
+  background: none;
+}
+.addTo:hover {
+  color: var(--gray);
+  cursor: pointer;
 }
 </style>
